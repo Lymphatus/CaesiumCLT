@@ -75,7 +75,7 @@ cclt_options parse_arguments(char **argv, cs_image_pars *options) {
 					if (computedPath == NULL) {
 					    //Folder does not exists and may just fail on some systems, like Docker Alpine
 					    if (errno == 2) {
-					        if (!mkpath(opts.optarg)) {
+					        if (mkpath(opts.optarg)) {
                                 computedPath = realpath(opts.optarg, parameters.output_folder);
                                 if (computedPath == NULL) {
                                     //Just throw an error here
