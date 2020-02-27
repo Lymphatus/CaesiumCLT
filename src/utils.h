@@ -32,7 +32,7 @@ off_t get_file_size(const char *path);
 
 char* get_human_size(off_t size);
 
-int mkpath(const char *pathname);
+bool mkpath(const char *pathname);
 
 bool file_exists(const char* file_path);
 

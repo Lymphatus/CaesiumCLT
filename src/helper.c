@@ -75,7 +75,7 @@ cclt_options parse_arguments(char **argv, cs_image_pars *options) {
 					if (computedPath == NULL) {
 					    //Folder does not exists and may just fail on some systems, like Docker Alpine
 					    if (errno == 2) {
-					        if (!recurse_mkdir(opts.optarg)) {
+					        if (!mkpath(opts.optarg)) {
                                 computedPath = realpath(opts.optarg, parameters.output_folder);
                                 if (computedPath == NULL) {
                                     //Just throw an error here
@@ -226,7 +226,7 @@ int start_compression(cclt_options *options, cs_image_pars *parameters) {
     off_t input_file_size = 0;
     off_t output_file_size = 0;
     //Create the output folder if does not exists
-    if (!recurse_mkdir(options->output_folder)) {
+    if (!mkpath(options->output_folder)) {
         display_error(ERROR, 5);
     }
 
@@ -261,7 +261,7 @@ int start_compression(cclt_options *options, cs_image_pars *parameters) {
                      output_full_folder,
                      filename);
 
-            recurse_mkdir(output_full_folder);
+            mkpath(output_full_folder);
         }
 
         //Calculating the total input file size, ignoring if we are going to skip them later
