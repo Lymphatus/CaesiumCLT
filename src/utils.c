@@ -103,11 +103,11 @@ void scan_folder(const char *directory, cclt_options *options, bool recursive) {
 }
 
 #ifdef _WIN32
-bool mkpath(const char *pathname)
+int mkpath(const char *pathname)
 {
     const char *p;
     char *temp;
-    bool ret = true;
+    bool ret = 0;
     const char SEP = '\\';
 
     temp = calloc(1, strlen(pathname) + 1);
@@ -140,7 +140,7 @@ bool mkpath(const char *pathname)
         {
             if (GetLastError() != ERROR_ALREADY_EXISTS)
             {
-                ret = false;
+                ret = -1;
                 break;
             }
         }
@@ -152,27 +152,29 @@ bool mkpath(const char *pathname)
 
 #ifndef _WIN32
 
-bool mkpath(const char *pathname) {
-    char parent[PATH_MAX], *p;
-    /* make a parent directory path */
-    strncpy(parent, pathname, sizeof(parent));
-    parent[sizeof(parent) - 1] = '\0';
-    for (p = parent + strlen(parent); *p != '/' && p != parent; p--);
-    *p = '\0';
-    /* try make parent directory */
-    if (p != parent && mkpath(parent) != 0) {
-        return false;
-    }
-    /* make this one if parent has been made */
-    if (mkdir(pathname, 0755) == 0) {
-        return true;
-    }
-    /* if it already exists that is fine */
-    if (errno == EEXIST) {
-        return true;
-    }
-    return false;
+int mkpath(const char *pathname)
+{
+	char parent[PATH_MAX], *p;
+	/* make a parent directory path */
+	strncpy(parent, pathname, sizeof(parent));
+	parent[sizeof(parent) - 1] = '\0';
+	for (p = parent + strlen(parent); *p != '/' && p != parent; p--);
+	*p = '\0';
+	/* try make parent directory */
+	if (p != parent && mkpath(parent) != 0) {
+		return -1;
+	}
+	/* make this one if parent has been made */
+	if (mkdir(pathname, 0755) == 0) {
+		return 0;
+	}
+	/* if it already exists that is fine */
+	if (errno == EEXIST) {
+		return 0;
+	}
+	return -1;
 }
+
 
 #endif
 
