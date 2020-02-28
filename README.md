@@ -1,5 +1,5 @@
 ## Caesium CommandLineTools
-##### caesium-clt - v0.15.1-beta (build 20200123) - Copyright &copy; Matteo Paonessa, 2020. All Rights Reserved.
+##### caesium-clt - v0.15.2-beta (build 20200228) - Copyright &copy; Matteo Paonessa, 2020. All Rights Reserved.
 [![Build Status](https://travis-ci.org/Lymphatus/caesium-clt.svg?branch=master)](https://travis-ci.org/Lymphatus/caesium-clt)
 ----------
 
@@ -92,6 +92,7 @@ $ caesiumclt -q 0 -RS -o ~/output/ ~/Pictures
 ----------
 
 ###### CHANGELOG
+* 0.15.2-beta - Fixed Windows -RS bug
 * 0.15.1-beta - Fixed rename bug on Windows + "Compressing..." message
 * 0.15.0-beta - Support for libcaesium 0.5.0
 * 0.14.0-beta - Added --quiet option
